@@ -1,16 +1,25 @@
 import type { NextFunction, Request, Response } from 'express';
 import express from 'express';
-import path from 'path';
 
 const router = express.Router();
 
-router.get('/add-product', (_req: Request, res: Response, _next: NextFunction) => {
-  res.sendFile(path.join(__dirname, '../', 'views', 'add-product.html'));
+const products: any = [];
+
+// /admin/add-product => GET
+router.get('/add-product', (req: Request, res: Response, _next) => {
+  res.render('add-product', {
+    pageTitle: 'Add Product',
+    path: '/admin/add-product',
+    formsCSS: true,
+    productCSS: true,
+    activeAddProduct: true,
+  });
 });
 
-router.post('/product', (req: Request, res: Response, _next: NextFunction) => {
-  console.log(req.body);
+// /admin/add-product => POST
+router.post('/add-product', (req: Request, res: Response, _next: NextFunction) => {
+  products.push({ title: req.body.title });
   res.redirect('/');
 });
 
-export default router;
+export { products, router as routes };
