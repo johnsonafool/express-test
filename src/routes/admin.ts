@@ -1,25 +1,16 @@
-import type { NextFunction, Request, Response } from 'express';
 import express from 'express';
+
+import { getAddProduct, getProducts, postAddProduct } from '../controllers/admin';
 
 const router = express.Router();
 
-const products: any = [];
-
 // /admin/add-product => GET
-router.get('/add-product', (req: Request, res: Response, _next) => {
-  res.render('add-product', {
-    pageTitle: 'Add Product',
-    path: '/admin/add-product',
-    formsCSS: true,
-    productCSS: true,
-    activeAddProduct: true,
-  });
-});
+router.get('/add-product', getAddProduct);
+
+// /admin/products => GET
+router.get('/products', getProducts);
 
 // /admin/add-product => POST
-router.post('/add-product', (req: Request, res: Response, _next: NextFunction) => {
-  products.push({ title: req.body.title });
-  res.redirect('/');
-});
+router.post('/add-product', postAddProduct);
 
-export { products, router as routes };
+export { router as adminRoutes };

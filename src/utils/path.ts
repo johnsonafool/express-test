@@ -1,4 +1,4 @@
 import path from 'path';
 
 // export default path.dirname(require.main?.filename || process.cwd());
-export default path.dirname(require.main!.filename);
+export const getRootDir = path.dirname(require.main!.filename);
